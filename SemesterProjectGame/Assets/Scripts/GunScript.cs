@@ -8,6 +8,7 @@ public class GunScript : MonoBehaviour
     public float damage = 10f;
     float range = 100f;
     public float fireRate = 15f;
+    public float ammoLeft = 100f;
     public Camera camera;
 
     private float nextTimeToFire = 0f;
