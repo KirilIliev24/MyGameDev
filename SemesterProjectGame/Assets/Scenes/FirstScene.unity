@@ -316,7 +316,7 @@ ParticleSystem:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 339357668}
   serializedVersion: 6
-  lengthInSec: 0.2
+  lengthInSec: 0.5
   simulationSpeed: 1
   stopAction: 0
   cullingMode: 0
@@ -5753,6 +5753,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 10
+  fireRate: 15
   camera: {fileID: 1696478856}
   muzzleFlash: {fileID: 339357671}
 --- !u!1 &2115626133
