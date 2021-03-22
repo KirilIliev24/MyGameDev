@@ -6,6 +6,9 @@ public class PlayerMovement : MonoBehaviour
 {
     public CharacterController controller;
     public Transform groundCollision;
+
+    public GameObject gunObject;
+    
     public float groundDistance = 0.4f;
     public LayerMask groundMask;
 
@@ -15,7 +18,12 @@ public class PlayerMovement : MonoBehaviour
     private float gravity = -9.81f;
     bool isGrounded;
     public float jump = 5f;
- 
+
+    private void Start()
+    {
+        //gunObject = transform.Find("HeavyGun");
+    }
+
     // Update is called once per frame
     void Update()
     {
