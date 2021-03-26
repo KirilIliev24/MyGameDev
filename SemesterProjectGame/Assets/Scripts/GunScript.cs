@@ -21,10 +21,13 @@ public class GunScript : MonoBehaviour
     public Camera camera;
 
     public ParticleSystem muzzleFlash;
+    private AudioSource audioSource;
+    public AudioClip singleGunShot;
 
     private void Start()
     {
         ammoLeft = maxAmmo;
+        audioSource = GetComponent<AudioSource>();
         ammoText.text = $"AMMO : {ammoLeft}";
     }
 
@@ -53,7 +56,8 @@ public class GunScript : MonoBehaviour
 
     void Shoot()
     {
-        //muzzleFlash.Play();
+        muzzleFlash.Play();
+        audioSource.PlayOneShot(singleGunShot, 1f);
         ammoLeft--;
         ammoText.text = $"AMMO : {ammoLeft}";
         Debug.Log($"Ammo left:{ammoLeft}");
