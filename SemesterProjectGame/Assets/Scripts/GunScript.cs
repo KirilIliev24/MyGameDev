@@ -1,19 +1,22 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class GunScript : MonoBehaviour
 {
     
     public float damage = 10f;
     float range = 100f;
-    public float fireRate = 10f;
+    public float fireRate = 8f;
     private float nextTimeToFire = 0f;
 
     private const int maxAmmo = 100;
     public int ammoLeft = 100;
     public float reloadTime = 1f;
     private bool isReloading = false;
+
+    public TextMeshProUGUI ammoText;
 
     public Camera camera;
 
@@ -22,11 +25,13 @@ public class GunScript : MonoBehaviour
     private void Start()
     {
         ammoLeft = maxAmmo;
+        ammoText.text = $"AMMO : {ammoLeft}";
     }
 
     // Update is called once per frame
     void Update()
     {
+        ammoText.text = $"AMMO : {ammoLeft}";
         if (isReloading)
         {
             return;
@@ -50,6 +55,7 @@ public class GunScript : MonoBehaviour
     {
         //muzzleFlash.Play();
         ammoLeft--;
+        ammoText.text = $"AMMO : {ammoLeft}";
         Debug.Log($"Ammo left:{ammoLeft}");
         RaycastHit raycastHit;
 
@@ -65,20 +71,21 @@ public class GunScript : MonoBehaviour
     }
 
 
-    //call this method from player
     private void Reload(int ammo)
     {
         isReloading = true;
-        //yield return new WaitForSeconds(1f);
+       
         if (ammoLeft + ammo >= maxAmmo)
         {
             ammoLeft = maxAmmo;
         }
         else
         {
-            ammoLeft = ammoLeft + ammo;
+            ammoLeft += ammo;
         }
         isReloading = false;
+        //yield return new WaitForSeconds(reloadTime);
+        
     }
 
     private void OnTriggerEnter(Collider other)
