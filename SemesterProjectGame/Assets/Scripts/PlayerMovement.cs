@@ -19,9 +19,16 @@ public class PlayerMovement : MonoBehaviour
     bool isGrounded;
     public float jump = 5f;
 
+    public int currentHealth;
+    private int maxHealth = 200;
+
+    public HealthBar healthBar;
+
+
     private void Start()
     {
-        //gunObject = transform.Find("HeavyGun");
+        currentHealth = maxHealth;
+        healthBar.SetMaxHealth(maxHealth);
     }
 
     // Update is called once per frame
@@ -50,7 +57,22 @@ public class PlayerMovement : MonoBehaviour
             velocity.y = Mathf.Sqrt(jump * -2 * gravity);
         }
 
+        if(Input.GetMouseButtonDown(1))
+        {
+            TakeDamege(20);
+        }
+
         // aplying delta time again because of the formula (g * t^2)/2
         controller.Move(velocity * Time.deltaTime);
     }
+
+    public void TakeDamege(int damage)
+    {
+        currentHealth -= damage;
+        healthBar.SetHealth(currentHealth);
+        if(currentHealth <= 0)
+        {
+            //do some failed screen
+        }
+    }    
 }

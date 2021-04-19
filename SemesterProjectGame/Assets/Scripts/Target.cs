@@ -4,12 +4,19 @@ using UnityEngine;
 
 public class Target : MonoBehaviour
 {
-    public float health = 100f;
+    public int health = 100;
     public GameObject ammoPickup;
+    public HealthBar healthBar;
 
-    public void TakeDamege(float damageTaken)
+    void Start()
+    {
+        healthBar.SetMaxHealth(100);
+    }
+
+    public void TakeDamege(int damageTaken)
     {
         health -= damageTaken;
+        healthBar.SetHealth(health);
         if (health <= 0f)
         {
             Destroy(gameObject);

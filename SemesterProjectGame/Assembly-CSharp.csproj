@@ -67,8 +67,10 @@
     <Compile Include="Assets\Default\Scripts\SimpleCameraController.cs" />
     <Compile Include="Assets\Default\TutorialInfo\Scripts\Readme.cs" />
     <Compile Include="Assets\Scripts\AmmoDisplay.cs" />
+    <Compile Include="Assets\Scripts\Billboard.cs" />
     <Compile Include="Assets\Scripts\CameraController.cs" />
     <Compile Include="Assets\Scripts\GunScript.cs" />
+    <Compile Include="Assets\Scripts\HealthBar.cs" />
     <Compile Include="Assets\Scripts\PlayerMovement.cs" />
     <Compile Include="Assets\Scripts\Target.cs" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

@@ -6,7 +6,7 @@ using TMPro;
 public class GunScript : MonoBehaviour
 {
     
-    public float damage = 10f;
+    public int damage = 10;
     float range = 1000f;
     public float fireRate = 8f;
     private float nextTimeToFire = 0f;
