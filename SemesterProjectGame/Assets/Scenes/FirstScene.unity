@@ -5106,6 +5106,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Target (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 6723034169227307612, guid: 63e17143679dedc4c997a7a4bc03415a,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6723034169227307612, guid: 63e17143679dedc4c997a7a4bc03415a,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 63e17143679dedc4c997a7a4bc03415a, type: 3}
 --- !u!1 &493230906
@@ -6165,6 +6175,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Target (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 6723034169227307612, guid: 63e17143679dedc4c997a7a4bc03415a,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6723034169227307612, guid: 63e17143679dedc4c997a7a4bc03415a,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 63e17143679dedc4c997a7a4bc03415a, type: 3}
 --- !u!1 &2057850397
@@ -6911,6 +6931,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Target
+      objectReference: {fileID: 0}
+    - target: {fileID: 5994601549897948438, guid: 63e17143679dedc4c997a7a4bc03415a,
+        type: 3}
+      propertyPath: camera
+      value: 
+      objectReference: {fileID: 1696478857}
+    - target: {fileID: 6723034169227307612, guid: 63e17143679dedc4c997a7a4bc03415a,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6723034169227307612, guid: 63e17143679dedc4c997a7a4bc03415a,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7428473049267052908, guid: 63e17143679dedc4c997a7a4bc03415a,
         type: 3}
