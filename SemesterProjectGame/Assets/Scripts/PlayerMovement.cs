@@ -15,9 +15,9 @@ public class PlayerMovement : MonoBehaviour
     public float speed = 10f;
 
     private Vector3 velocity;
-    private float gravity = -9.81f;
+    private float gravity = -18f;
     bool isGrounded;
-    public float jump = 5f;
+    public float jump = 0.5f;
 
     public int currentHealth;
     private int maxHealth = 200;
@@ -51,7 +51,7 @@ public class PlayerMovement : MonoBehaviour
 
         velocity.y += gravity * Time.deltaTime;
 
-        if (Input.GetButtonDown("Jump") && isGrounded)
+        if (Input.GetButton("Jump") && isGrounded)
         {
             //formula for calculating the velocity for jumping a desired hight
             velocity.y = Mathf.Sqrt(jump * -2 * gravity);
