@@ -66,10 +66,10 @@ public class GunScript : MonoBehaviour
         if (Physics.Raycast(camera.transform.position, camera.transform.forward, out raycastHit, range))
         {
             Debug.Log(raycastHit.transform.name);
-            Target target = raycastHit.transform.GetComponent<Target>();
-            if (target != null)
+            EnemyScript enemy = raycastHit.transform.GetComponent<EnemyScript>();
+            if (enemy != null)
             {
-                target.TakeDamege(damage);
+                enemy.TakeDamege(damage);
             }
         }
     }

@@ -7,7 +7,7 @@ public class PlayerMovement : MonoBehaviour
     public CharacterController controller;
     public Transform groundCollision;
 
-    public GameObject gunObject;
+    //public GameObject gunObject;
     
     public float groundDistance = 0.4f;
     public LayerMask groundMask;
