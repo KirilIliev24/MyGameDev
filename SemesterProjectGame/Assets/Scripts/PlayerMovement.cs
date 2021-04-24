@@ -32,7 +32,7 @@ public class PlayerMovement : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         //return true if the player is on the ground
         isGrounded = Physics.CheckSphere(groundCollision.position, groundDistance, groundMask);
@@ -74,5 +74,29 @@ public class PlayerMovement : MonoBehaviour
         {
             //do some failed screen
         }
-    }    
+    }
+
+    private void Heal(int amount)
+    {
+        if(currentHealth + amount > maxHealth)
+        {
+            currentHealth = maxHealth;
+        }
+        else
+        {
+            currentHealth += amount;
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Heal"))
+        {
+            Heal(25);
+            healthBar.SetHealth(currentHealth);
+            Debug.Log("Healed");
+            Debug.Log($"Health after heal:{currentHealth}");
+            Destroy(other.gameObject);
+        }
+    }
 }

@@ -350,7 +350,7 @@ GameObject:
   - component: {fileID: 5112105455923655080}
   m_Layer: 0
   m_Name: Enemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -449,6 +449,8 @@ MonoBehaviour:
   healthBar: {fileID: 1770332906118297783}
   damage: 10
   ammoPickup: {fileID: 5007718575865661655, guid: 7cc3691f833add54d9ba8f3ce4d111e5,
+    type: 3}
+  healPickup: {fileID: 5007718575865661655, guid: 55840d3c4e9b76d458c33510cf21aa26,
     type: 3}
   agent: {fileID: 5112105455923655080}
   playerMask:

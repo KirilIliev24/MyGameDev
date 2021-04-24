@@ -14,6 +14,7 @@ public class EnemyScript : MonoBehaviour
 
     //Loot
     public GameObject ammoPickup;
+    public GameObject healPickup;
 
     //AI
     public NavMeshAgent agent;
@@ -153,8 +154,17 @@ public class EnemyScript : MonoBehaviour
 
     private void SpawnLoot()
     {
-        //spawn reload pickup
-        Instantiate(ammoPickup, gameObject.transform.position, Quaternion.identity);
+        int itemDrop = Random.Range(0, 100);
+        if(itemDrop < 50)
+        {
+            //spawn reload pickup
+            Instantiate(ammoPickup, gameObject.transform.position, Quaternion.identity);
+        }
+        else
+        {
+            //spawn heal pickup
+            Instantiate(healPickup, gameObject.transform.position, Quaternion.identity);
+        }
     }
 
     private void OnDrawGizmos()

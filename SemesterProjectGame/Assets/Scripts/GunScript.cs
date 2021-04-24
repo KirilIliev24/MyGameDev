@@ -66,9 +66,14 @@ public class GunScript : MonoBehaviour
         if (Physics.Raycast(camera.transform.position, camera.transform.forward, out raycastHit, range))
         {
             Debug.Log(raycastHit.transform.name);
-            EnemyScript enemy = raycastHit.transform.GetComponent<EnemyScript>();
-            if (enemy != null)
+            if(raycastHit.collider.tag == "Enemy")
             {
+                var enemy = raycastHit.transform.GetComponent<EnemyScript>();
+                enemy.TakeDamege(damage);
+            }
+            if (raycastHit.collider.tag == "LootCrate")
+            {
+                var enemy = raycastHit.transform.GetComponent<Target>();
                 enemy.TakeDamege(damage);
             }
         }

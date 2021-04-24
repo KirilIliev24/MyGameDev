@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - ReloadAmmo
+  - LootCrate
+  - Enemy
+  - Heal
   layers:
   - Default
   - TransparentFX
