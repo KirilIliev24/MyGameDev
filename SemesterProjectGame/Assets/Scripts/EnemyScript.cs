@@ -120,12 +120,12 @@ public class EnemyScript : MonoBehaviour
         {
             //Fix attack code
             //Attack code
-            //Vector3 shootFrom = new Vector3(transform.position.x - 5, transform.position.y, transform.position.z);
-            //Rigidbody rigidbody = Instantiate(projectile, shootFrom, Quaternion.identity).GetComponent<Rigidbody>();
-            //rigidbody.AddForce(transform.forward * 32, ForceMode.Acceleration);
-            //rigidbody.AddForce(transform.up * 8, ForceMode.Acceleration);
+            Vector3 shootFrom = new Vector3(transform.position.x, transform.position.y, transform.position.z);
+            Rigidbody rigidbody = Instantiate(projectile, shootFrom, Quaternion.identity).GetComponent<Rigidbody>();
+            rigidbody.AddForce(transform.forward * 32, ForceMode.Impulse);
+            rigidbody.AddForce(transform.up * 4, ForceMode.Impulse);
             ////
-            //Destroy(rigidbody, 1);
+            Destroy(rigidbody.gameObject, 1f);
             alreadyAttacked = true;
            
             Invoke(nameof(ResetAttack), timeBetweenAttacks);

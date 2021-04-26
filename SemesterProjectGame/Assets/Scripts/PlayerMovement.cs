@@ -57,11 +57,6 @@ public class PlayerMovement : MonoBehaviour
             velocity.y = Mathf.Sqrt(jump * -2 * gravity);
         }
 
-        if(Input.GetMouseButtonDown(1))
-        {
-            TakeDamege(20);
-        }
-
         // aplying delta time again because of the formula (g * t^2)/2
         controller.Move(velocity * Time.deltaTime);
     }
@@ -86,6 +81,7 @@ public class PlayerMovement : MonoBehaviour
         {
             currentHealth += amount;
         }
+        healthBar.SetHealth(currentHealth);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -93,9 +89,16 @@ public class PlayerMovement : MonoBehaviour
         if (other.gameObject.CompareTag("Heal"))
         {
             Heal(25);
-            healthBar.SetHealth(currentHealth);
+            
             Debug.Log("Healed");
             Debug.Log($"Health after heal:{currentHealth}");
+            Destroy(other.gameObject);
+        }
+        if(other.gameObject.CompareTag("EnemyProjectile"))
+        {
+            TakeDamege(10);
+            Debug.Log("Player took damage");
+            Debug.Log($"Health after damage:{currentHealth}");
             Destroy(other.gameObject);
         }
     }

@@ -8,6 +8,7 @@ TagManager:
   - LootCrate
   - Enemy
   - Heal
+  - EnemyProjectile
   layers:
   - Default
   - TransparentFX
