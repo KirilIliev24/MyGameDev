@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -8,7 +9,7 @@ public class PlayerMovement : MonoBehaviour
     public Transform groundCollision;
 
     //public GameObject gunObject;
-    
+
     public float groundDistance = 0.4f;
     public LayerMask groundMask;
 
@@ -65,15 +66,15 @@ public class PlayerMovement : MonoBehaviour
     {
         currentHealth -= damage;
         healthBar.SetHealth(currentHealth);
-        if(currentHealth <= 0)
+        if (currentHealth <= 0)
         {
-            //do some failed screen
+            YouDied();
         }
     }
 
     private void Heal(int amount)
     {
-        if(currentHealth + amount > maxHealth)
+        if (currentHealth + amount > maxHealth)
         {
             currentHealth = maxHealth;
         }
@@ -84,22 +85,39 @@ public class PlayerMovement : MonoBehaviour
         healthBar.SetHealth(currentHealth);
     }
 
+    private void YouDied()
+    {
+        SceneManager.LoadScene("EndGameScene");
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Heal"))
         {
             Heal(25);
-            
-            Debug.Log("Healed");
-            Debug.Log($"Health after heal:{currentHealth}");
+            //Debug.Log("Healed");
+            //Debug.Log($"Health after heal:{currentHealth}");
             Destroy(other.gameObject);
         }
-        if(other.gameObject.CompareTag("EnemyProjectile"))
+        //if(other.gameObject.CompareTag("EnemyProjectile"))
+        //{
+        //    //maybe get the damege from the projectile
+        //    TakeDamege(10);
+        //    Debug.Log("Player took damage");
+        //    Debug.Log($"Health after damage:{currentHealth}");
+        //    Destroy(other.gameObject);
+        //}
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("EnemyProjectile"))
         {
+            //maybe get the damege from the projectile
             TakeDamege(10);
-            Debug.Log("Player took damage");
-            Debug.Log($"Health after damage:{currentHealth}");
-            Destroy(other.gameObject);
+            //Debug.Log("Player took damage");
+            //Debug.Log($"Health after damage:{currentHealth}");
+            Destroy(collision.gameObject);
         }
     }
 }

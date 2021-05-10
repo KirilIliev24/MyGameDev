@@ -60,12 +60,12 @@ public class GunScript : MonoBehaviour
         audioSource.PlayOneShot(singleGunShot, 1f);
         ammoLeft--;
         ammoText.text = $"AMMO : {ammoLeft}";
-        Debug.Log($"Ammo left:{ammoLeft}");
+        //Debug.Log($"Ammo left:{ammoLeft}");
         RaycastHit raycastHit;
 
         if (Physics.Raycast(camera.transform.position, camera.transform.forward, out raycastHit, range))
         {
-            Debug.Log(raycastHit.transform.name);
+            //Debug.Log(raycastHit.transform.name);
             if(raycastHit.collider.tag == "Enemy")
             {
                 var enemy = raycastHit.transform.GetComponent<EnemyScript>();
@@ -102,8 +102,8 @@ public class GunScript : MonoBehaviour
         if (other.gameObject.CompareTag("ReloadAmmo"))
         {
             Reload(25);
-            Debug.Log("Reload");
-            Debug.Log($"Ammo after reload:{ammoLeft}");
+            //Debug.Log("Reload");
+            //Debug.Log($"Ammo after reload:{ammoLeft}");
             Destroy(other.gameObject);
         }
     }

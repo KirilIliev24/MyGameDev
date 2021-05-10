@@ -6,10 +6,12 @@ using UnityEngine.AI;
 public class EnemyScript : MonoBehaviour
 {
     //Health
+    [SerializeField]
     public int health = 100;
     public HealthBar healthBar;
 
     //Damage
+    [SerializeField]
     public int damage = 10;
 
     //Loot
@@ -27,12 +29,17 @@ public class EnemyScript : MonoBehaviour
     public float walkPointRange;
 
     //Attacking
+    [SerializeField]
     public float timeBetweenAttacks;
     bool alreadyAttacked;
     public GameObject projectile;
+    public GameObject shootPoint;
+    private bool ableToShootPlayer = false;
 
     //States
+    [SerializeField]
     public float sightRange, attackRange;
+    [SerializeField]
     public bool playerInSight, playerInAttackRange;
 
     void Start()
@@ -55,7 +62,9 @@ public class EnemyScript : MonoBehaviour
         playerInSight = Physics.CheckSphere(transform.position, sightRange, playerMask);
         playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, playerMask);
 
-        if(!playerInSight && !playerInAttackRange)
+       
+
+        if (!playerInSight && !playerInAttackRange)
         {
             Patroling();
         }
@@ -116,12 +125,25 @@ public class EnemyScript : MonoBehaviour
         agent.SetDestination(transform.position);
         transform.LookAt(player);
 
-        if(!alreadyAttacked)
+        RaycastHit hit;
+
+        if (Physics.Raycast(shootPoint.transform.position, transform.forward, out hit, 20f))
         {
-            //Fix attack code
+            if(hit.collider.tag == "Player")
+            {
+                Debug.Log($"Able to shoot player: {ableToShootPlayer}");
+                ableToShootPlayer = true;
+            }
+        }
+        else
+        {
+            ableToShootPlayer = false;
+        }
+
+        if (!alreadyAttacked && ableToShootPlayer)
+        {
             //Attack code
-            Vector3 shootFrom = new Vector3(transform.position.x, transform.position.y, transform.position.z);
-            Rigidbody rigidbody = Instantiate(projectile, shootFrom, Quaternion.identity).GetComponent<Rigidbody>();
+            Rigidbody rigidbody = Instantiate(projectile, shootPoint.transform.position, Quaternion.identity).GetComponent<Rigidbody>();
             rigidbody.AddForce(transform.forward * 32, ForceMode.Impulse);
             rigidbody.AddForce(transform.up * 4, ForceMode.Impulse);
             ////
@@ -135,6 +157,8 @@ public class EnemyScript : MonoBehaviour
     private void ResetAttack()
     {
         alreadyAttacked = false;
+        ableToShootPlayer = false;
+        Debug.Log($"Able to shoot player: {ableToShootPlayer}");
     }
 
     public void TakeDamege(int damageTaken)
@@ -158,7 +182,7 @@ public class EnemyScript : MonoBehaviour
         if(itemDrop < 50)
         {
             //spawn reload pickup
-            Instantiate(ammoPickup, gameObject.transform.position, Quaternion.identity);
+            Instantiate(ammoPickup, gameObject.transform.position, ammoPickup.transform.rotation);
         }
         else
         {

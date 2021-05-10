@@ -7,11 +7,11 @@ public class Target : MonoBehaviour
     public int health = 50;
     public GameObject ammoPickup;
     public GameObject healPickup;
-    public HealthBar healthBar;
+    //public HealthBar healthBar;
 
     void Start()
     {
-        healthBar.SetMaxHealth(100);
+        //healthBar.SetMaxHealth(100);
     }
 
     private void SpawnLoot()
@@ -20,7 +20,7 @@ public class Target : MonoBehaviour
         if (itemDrop < 50)
         {
             //spawn reload pickup
-            Instantiate(ammoPickup, gameObject.transform.position, Quaternion.identity);
+            Instantiate(ammoPickup, gameObject.transform.position, ammoPickup.transform.rotation);
         }
         else
         {
@@ -32,7 +32,7 @@ public class Target : MonoBehaviour
     public void TakeDamege(int damageTaken)
     {
         health -= damageTaken;
-        healthBar.SetHealth(health);
+        //healthBar.SetHealth(health);
         if (health <= 0f)
         {
             Destroy(gameObject);
