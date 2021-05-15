@@ -12,9 +12,10 @@ GameObject:
   - component: {fileID: 6098441218111945042}
   - component: {fileID: 6098441218111945045}
   - component: {fileID: 6098441218111945044}
+  - component: {fileID: -2890710005771834200}
   m_Layer: 10
-  m_Name: CubeObstacle
-  m_TagString: Untagged
+  m_Name: RedCubeObstacle
+  m_TagString: LootCrate
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -93,3 +94,20 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &-2890710005771834200
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6098441218111945046}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98307b9fe67d1b94cbeb7d22db75be57, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 50
+  ammoPickup: {fileID: 2392122139106164601, guid: a23a963149bfcc245819d5dba458983d,
+    type: 3}
+  healPickup: {fileID: 5007718575865661655, guid: 55840d3c4e9b76d458c33510cf21aa26,
+    type: 3}

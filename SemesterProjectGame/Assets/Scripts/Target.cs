@@ -4,13 +4,14 @@ using UnityEngine;
 
 public class Target : MonoBehaviour
 {
-    public int health = 50;
+    public int health;
     public GameObject ammoPickup;
     public GameObject healPickup;
     //public HealthBar healthBar;
 
     void Start()
     {
+        health = 50;
         //healthBar.SetMaxHealth(100);
     }
 

@@ -31,6 +31,6 @@ public class CameraController : MonoBehaviour
 
         //quarternions are responsible for rotations
         transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
-        player.Rotate(Vector3.up * mouseX);
+        player.Rotate(Vector3.up * mouseX );
     }
 }

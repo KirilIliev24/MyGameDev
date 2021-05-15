@@ -42,17 +42,20 @@ public class EnemyScript : MonoBehaviour
     [SerializeField]
     public bool playerInSight, playerInAttackRange;
 
+    //Animator
+    public Animator animator;
+
+    //Enemy counter
+    public delegate void DieEvent();
+    public static event DieEvent dieEvent;
+
     void Start()
     {
         player = GameObject.Find("Player").transform;
         agent = GetComponent<NavMeshAgent>();
-        //if (!agent.isOnNavMesh)
-        //{
-        //    transform.position = transform.position;
-        //    agent.enabled = false;
-        //    agent.enabled = true;
-        //}
         healthBar.SetMaxHealth(100);
+        animator.SetFloat("health", health);
+        animator.applyRootMotion = true;
     }
 
     // Update is called once per frame
@@ -60,9 +63,10 @@ public class EnemyScript : MonoBehaviour
     {
         //Checking if player is in range
         playerInSight = Physics.CheckSphere(transform.position, sightRange, playerMask);
+        animator.SetBool("playerInSight", playerInSight);
         playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, playerMask);
+        animator.SetBool("playerInAttackRange", playerInAttackRange);
 
-       
 
         if (!playerInSight && !playerInAttackRange)
         {
@@ -111,7 +115,6 @@ public class EnemyScript : MonoBehaviour
         {
             walkPointSet = true;
         }
-    
     }
 
     private void Chasing()
@@ -126,14 +129,15 @@ public class EnemyScript : MonoBehaviour
         transform.LookAt(player);
 
         RaycastHit hit;
-
-        if (Physics.Raycast(shootPoint.transform.position, transform.forward, out hit, 20f))
+        //Debug.DrawRay(shootPoint.transform.position, transform.forward, Color.green);
+        if (Physics.Raycast(shootPoint.transform.position, transform.forward, out hit, 30f))
         {
             if(hit.collider.tag == "Player")
             {
                 Debug.Log($"Able to shoot player: {ableToShootPlayer}");
                 ableToShootPlayer = true;
             }
+            
         }
         else
         {
@@ -146,7 +150,7 @@ public class EnemyScript : MonoBehaviour
             Rigidbody rigidbody = Instantiate(projectile, shootPoint.transform.position, Quaternion.identity).GetComponent<Rigidbody>();
             rigidbody.AddForce(transform.forward * 32, ForceMode.Impulse);
             rigidbody.AddForce(transform.up * 4, ForceMode.Impulse);
-            ////
+
             Destroy(rigidbody.gameObject, 1f);
             alreadyAttacked = true;
            
@@ -158,7 +162,7 @@ public class EnemyScript : MonoBehaviour
     {
         alreadyAttacked = false;
         ableToShootPlayer = false;
-        Debug.Log($"Able to shoot player: {ableToShootPlayer}");
+        //Debug.Log($"Able to shoot player: {ableToShootPlayer}");
     }
 
     public void TakeDamege(int damageTaken)
@@ -167,13 +171,29 @@ public class EnemyScript : MonoBehaviour
         healthBar.SetHealth(health);
         if (health <= 0f)
         {
-            //Die Animation
-
-            //Destroy object
-            Destroy(gameObject);
-
-            SpawnLoot();
+            Die();
         }
+    }
+
+    private void Die()
+    {
+        gameObject.tag = "DeadEnemy";
+        //Calling 
+        if(dieEvent != null)
+        {
+            dieEvent();
+        }
+
+        //Animator playing death animation
+        animator.applyRootMotion = false;
+        animator.bodyPosition = gameObject.transform.position;
+        animator.rootRotation = Quaternion.identity;
+        animator.SetFloat("health", health);
+        
+        //Destroy object
+        Destroy(gameObject, animator.GetCurrentAnimatorStateInfo(0).length + 1 / 3);
+
+        SpawnLoot();
     }
 
     private void SpawnLoot()
@@ -193,6 +213,8 @@ public class EnemyScript : MonoBehaviour
 
     private void OnDrawGizmos()
     {
+        
+
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, attackRange);
         Gizmos.color = Color.yellow;

@@ -9,6 +9,8 @@ TagManager:
   - Enemy
   - Heal
   - EnemyProjectile
+  - EnemyCount
+  - DeadEnemy
   layers:
   - Default
   - TransparentFX

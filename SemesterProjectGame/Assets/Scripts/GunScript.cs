@@ -92,9 +92,7 @@ public class GunScript : MonoBehaviour
         {
             ammoLeft += ammo;
         }
-        isReloading = false;
-        //yield return new WaitForSeconds(reloadTime);
-        
+        isReloading = false;   
     }
 
     private void OnTriggerEnter(Collider other)

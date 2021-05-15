@@ -8,16 +8,16 @@ public class PlayerMovement : MonoBehaviour
     public CharacterController controller;
     public Transform groundCollision;
 
-    //public GameObject gunObject;
-
     public float groundDistance = 0.4f;
     public LayerMask groundMask;
+    public LayerMask wallMask;
 
     public float speed = 10f;
 
     private Vector3 velocity;
     private float gravity = -18f;
     bool isGrounded;
+    bool isOnWall;
     public float jump = 0.5f;
 
     public int currentHealth;
@@ -37,29 +37,37 @@ public class PlayerMovement : MonoBehaviour
     {
         //return true if the player is on the ground
         isGrounded = Physics.CheckSphere(groundCollision.position, groundDistance, groundMask);
+        isOnWall = Physics.CheckSphere(groundCollision.position, groundDistance, wallMask);
 
-        if (isGrounded && velocity.y < 0)
+        if (isGrounded || isOnWall)
         {
-            velocity.y = -2f;
+            if (velocity.y < 0)
+            {
+                velocity.y = -2f;
+            }
         }
+       
 
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");
 
         Vector3 move = transform.right * x + transform.forward * z;
 
-        controller.Move(move * speed * Time.deltaTime);
+        controller.Move(move * speed * Time.fixedDeltaTime);
 
-        velocity.y += gravity * Time.deltaTime;
+        velocity.y += gravity * Time.fixedDeltaTime;
 
-        if (Input.GetButton("Jump") && isGrounded)
+        if (Input.GetButton("Jump"))
         {
-            //formula for calculating the velocity for jumping a desired hight
-            velocity.y = Mathf.Sqrt(jump * -2 * gravity);
+            if(isGrounded || isOnWall)
+            {
+                //formula for calculating the velocity for jumping a desired hight
+                velocity.y = Mathf.Sqrt(jump * -2 * gravity);
+            }
         }
 
         // aplying delta time again because of the formula (g * t^2)/2
-        controller.Move(velocity * Time.deltaTime);
+        controller.Move(velocity * Time.fixedDeltaTime);
     }
 
     public void TakeDamege(int damage)
@@ -99,14 +107,6 @@ public class PlayerMovement : MonoBehaviour
             //Debug.Log($"Health after heal:{currentHealth}");
             Destroy(other.gameObject);
         }
-        //if(other.gameObject.CompareTag("EnemyProjectile"))
-        //{
-        //    //maybe get the damege from the projectile
-        //    TakeDamege(10);
-        //    Debug.Log("Player took damage");
-        //    Debug.Log($"Health after damage:{currentHealth}");
-        //    Destroy(other.gameObject);
-        //}
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -114,7 +114,7 @@ public class PlayerMovement : MonoBehaviour
         if (collision.gameObject.CompareTag("EnemyProjectile"))
         {
             //maybe get the damege from the projectile
-            TakeDamege(10);
+            TakeDamege(20);
             //Debug.Log("Player took damage");
             //Debug.Log($"Health after damage:{currentHealth}");
             Destroy(collision.gameObject);
