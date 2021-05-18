@@ -11,7 +11,7 @@ public class Target : MonoBehaviour
 
     void Start()
     {
-        health = 50;
+        health = 15;
         //healthBar.SetMaxHealth(100);
     }
 

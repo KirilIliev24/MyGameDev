@@ -25,6 +25,10 @@ public class PlayerMovement : MonoBehaviour
 
     public HealthBar healthBar;
 
+    private int meleeDamege = 5;
+
+    //Animator
+    public Animator animator;
 
     private void Start()
     {
@@ -66,6 +70,29 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
+        RaycastHit hit;
+
+        
+        if (Input.GetMouseButtonDown(1))
+        {
+            animator.SetTrigger("PunchObject");
+            if (Physics.Raycast(transform.position, transform.forward, out hit, 2.5f))
+            {
+                //Debug.DrawRay(transform.position, transform.forward, Color.green);
+                if (hit.collider.CompareTag("LootCrate"))
+                {
+                    Debug.Log($"Destroy crate");
+
+                    var lootCrate = hit.transform.GetComponent<Target>();
+                    lootCrate.TakeDamege(meleeDamege);
+                }
+                if (hit.collider.CompareTag("Enemy"))
+                {
+                    var enemy = hit.transform.GetComponent<EnemyScript>();
+                    enemy.TakeDamege(meleeDamege);
+                }
+            }
+        }
         // aplying delta time again because of the formula (g * t^2)/2
         controller.Move(velocity * Time.fixedDeltaTime);
     }
@@ -96,6 +123,7 @@ public class PlayerMovement : MonoBehaviour
     private void YouDied()
     {
         SceneManager.LoadScene("EndGameScene");
+        PlayerPrefs.SetString("EndGameString", "You DIED");
     }
 
     private void OnTriggerEnter(Collider other)
@@ -113,7 +141,6 @@ public class PlayerMovement : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("EnemyProjectile"))
         {
-            //maybe get the damege from the projectile
             TakeDamege(20);
             //Debug.Log("Player took damage");
             //Debug.Log($"Health after damage:{currentHealth}");

@@ -18,7 +18,7 @@ public class GunScript : MonoBehaviour
 
     public TextMeshProUGUI ammoText;
 
-    public Camera camera;
+    public Transform camera;
 
     public ParticleSystem muzzleFlash;
     private AudioSource audioSource;
@@ -29,6 +29,7 @@ public class GunScript : MonoBehaviour
         ammoLeft = maxAmmo;
         audioSource = GetComponent<AudioSource>();
         ammoText.text = $"AMMO : {ammoLeft}";
+        camera = GameObject.FindGameObjectWithTag("MainCamera").transform;
     }
 
     // Update is called once per frame
@@ -63,15 +64,15 @@ public class GunScript : MonoBehaviour
         //Debug.Log($"Ammo left:{ammoLeft}");
         RaycastHit raycastHit;
 
-        if (Physics.Raycast(camera.transform.position, camera.transform.forward, out raycastHit, range))
+        if (Physics.Raycast(camera.position, camera.forward, out raycastHit, range))
         {
             //Debug.Log(raycastHit.transform.name);
-            if(raycastHit.collider.tag == "Enemy")
+            if(raycastHit.collider.CompareTag("Enemy"))
             {
                 var enemy = raycastHit.transform.GetComponent<EnemyScript>();
                 enemy.TakeDamege(damage);
             }
-            if (raycastHit.collider.tag == "LootCrate")
+            if (raycastHit.collider.CompareTag("LootCrate"))
             {
                 var enemy = raycastHit.transform.GetComponent<Target>();
                 enemy.TakeDamege(damage);

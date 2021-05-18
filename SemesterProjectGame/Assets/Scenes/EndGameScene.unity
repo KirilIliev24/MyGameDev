@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -392,7 +392,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 68}
-  m_SizeDelta: {x: -411.2577, y: -377.6531}
+  m_SizeDelta: {x: -487.86377, y: -397.15073}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1073686494
 MonoBehaviour:
@@ -990,6 +990,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: afbbfb5876472e84988224436fb9eddf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  endGameText: {fileID: 1073686494}
 --- !u!1 &1859266149
 GameObject:
   m_ObjectHideFlags: 0

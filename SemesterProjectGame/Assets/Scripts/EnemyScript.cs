@@ -130,14 +130,13 @@ public class EnemyScript : MonoBehaviour
 
         RaycastHit hit;
         //Debug.DrawRay(shootPoint.transform.position, transform.forward, Color.green);
-        if (Physics.Raycast(shootPoint.transform.position, transform.forward, out hit, 30f))
+        if (Physics.Raycast(shootPoint.transform.position, transform.forward, out hit, 32f))
         {
-            if(hit.collider.tag == "Player")
+            if (hit.collider.tag == "Player")
             {
                 Debug.Log($"Able to shoot player: {ableToShootPlayer}");
                 ableToShootPlayer = true;
             }
-            
         }
         else
         {
@@ -153,7 +152,7 @@ public class EnemyScript : MonoBehaviour
 
             Destroy(rigidbody.gameObject, 1f);
             alreadyAttacked = true;
-           
+
             Invoke(nameof(ResetAttack), timeBetweenAttacks);
         }
     }
@@ -162,7 +161,8 @@ public class EnemyScript : MonoBehaviour
     {
         alreadyAttacked = false;
         ableToShootPlayer = false;
-        //Debug.Log($"Able to shoot player: {ableToShootPlayer}");
+
+        Debug.Log($"Able to shoot player: {ableToShootPlayer}");
     }
 
     public void TakeDamege(int damageTaken)
@@ -186,8 +186,8 @@ public class EnemyScript : MonoBehaviour
 
         //Animator playing death animation
         animator.applyRootMotion = false;
-        animator.bodyPosition = gameObject.transform.position;
-        animator.rootRotation = Quaternion.identity;
+        //animator.bodyPosition = gameObject.transform.position;
+        //animator.rootRotation = Quaternion.identity;
         animator.SetFloat("health", health);
         
         //Destroy object
